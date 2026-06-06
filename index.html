@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tushar Ravi Shinde - Windows XP Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* --- WINDOWS XP SYSTEM CSS --- */
+        :root {
+            --xp-blue-title: linear-gradient(to right, #0058e6 0%, #3a93ff 100%);
+            --xp-blue-title-inactive: linear-gradient(to right, #7A96DF 0%, #9DBAF2 100%);
+            --xp-bg: #ECE9D8;
+            --xp-taskbar: linear-gradient(to bottom, #245EDC 0%, #3F81EC 8%, #245EDC 40%, #1042AF 100%);
+            --xp-start-btn: linear-gradient(to bottom, #419541 0%, #52BE52 10%, #419541 40%, #2A732A 100%);
+            --xp-start-btn-hover: linear-gradient(to bottom, #50A850 0%, #63D063 10%, #50A850 40%, #338B33 100%);
+            --xp-border-blue: #0055E5;
+            --xp-text-black: #000000;
+        }
+
+        @font-face {
+            font-family: 'Tahoma';
+            src: local('Tahoma'), local('Verdana'), local('Segoe UI'), sans-serif;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: Tahoma, 'Microsoft Sans Serif', sans-serif;
+            background-color: #000;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Desktop Wallpaper (Bliss representation / Editable) */
+        #desktop {
+            position: relative;
+            width: 100vw;
+            height: calc(100vh - 30px);
+            background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center bottom;
+            overflow: hidden;
+            transition: background-image 0.3s ease;
+        }
+
+        /* Desktop Icons */
+        #icon-grid {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 15px;
+            height: 100%;
+            flex-wrap: wrap;
+            align-content: flex-start;
+        }
+
+        .desktop-icon {
+            width: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid transparent;
+            padding: 6px 4px;
+            border-radius: 3px;
+            transition: background-color 0.1s;
+        }
+
+        .desktop-icon:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .desktop-icon.selected {
+            background-color: rgba(0, 85, 229, 0.5);
+            border: 1px dotted rgba(255, 255, 255, 0.8);
+        }
+
+        .desktop-icon svg {
+            width: 40px;
+            height: 40px;
+            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.6));
+            margin-bottom: 5px;
+        }
+
+        .desktop-icon span {
+            color: white;
+            font-size: 11px;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px black, 0 0 1em black;
+            line-height: 1.2;
+            word-wrap: break-word;
+            max-width: 100%;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Windows Chrome Styling */
+        .xp-window {
+            position: absolute;
+            background-color: var(--xp-bg);
+            border: 3px solid var(--xp-border-blue);
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 4px 15px rgba(0,0,0,0.45);
+            min-width: 320px;
+            min-height: 220px;
+            max-width: 100vw;
+            max-height: calc(100vh - 30px);
+        }
+
+        .xp-window.inactive {
+            border-color: #7A96DF;
+        }
+
+        .xp-titlebar {
+            background: var(--xp-blue-title);
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6px;
+            cursor: move;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .xp-window.inactive .xp-titlebar {
+            background: var(--xp-blue-title-inactive);
+        }
+
+        .xp-titlebar-text {
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+            text-shadow: 1px 1px 2px #000;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            pointer-events: none;
+        }
+
+        .xp-titlebar-text svg {
+            width: 16px; height: 16px;
+        }
+
+        .xp-titlebar-buttons {
+            display: flex;
+            gap: 3px;
+        }
+
+        .xp-btn {
+            width: 21px; height: 21px;
+            border: 1px solid #FFF;
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: inset -1px -1px 2px rgba(0,0,0,0.4), inset 1px 1px 2px rgba(255,255,255,0.8);
+        }
+        
+        .xp-btn:active {
+            box-shadow: inset 1px 1px 2px rgba(0,0,0,0.6);
+            padding-top: 2px;
+            padding-left: 2px;
+        }
+
+        .xp-btn-blue {
+            background: linear-gradient(to bottom, #3A93FF, #0055E5);
+        }
+        .xp-btn-red {
+            background: linear-gradient(to bottom, #E58273, #E54028);
+        }
+        .xp-window.inactive .xp-btn {
+            opacity: 0.7;
+        }
+
+        .xp-content-area {
+            flex: 1;
+            background-color: white;
+            margin: 0 3px 3px 3px;
+            border: 1px solid #7F9DB9;
+            overflow-y: auto;
+            padding: 16px;
+            font-size: 13px;
+            color: var(--xp-text-black);
+            cursor: auto;
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        /* Taskbar Styles */
+        #taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: 30px;
+            background: var(--xp-taskbar);
+            display: flex;
+            z-index: 10000;
+            border-top: 1px solid #5C94F2;
+        }
+
+        #start-btn {
+            background: var(--xp-start-btn);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 16px 0 12px;
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+            cursor: pointer;
+            box-shadow: 2px 0 3px rgba(0,0,0,0.35), inset 1px 1px 1px rgba(255,255,255,0.4);
+            color: white;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 16px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+            gap: 6px;
+        }
+        #start-btn:hover { background: var(--xp-start-btn-hover); }
+        #start-btn:active { box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5); padding-top: 1px; }
+
+        #taskbar-apps {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            gap: 6px;
+            overflow-x: auto;
+        }
+        #taskbar-apps::-webkit-scrollbar { display: none; }
+
+        .taskbar-item {
+            width: 140px;
+            height: 24px;
+            background: linear-gradient(to bottom, #3E80ED, #2258D5);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            gap: 6px;
+            color: white;
+            font-size: 11px;
+            cursor: pointer;
+            border: 1px solid #1E4BB5;
+            box-shadow: inset 1px 1px 2px rgba(255,255,255,0.4);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .taskbar-item.active {
+            background: linear-gradient(to bottom, #1B45A8, #285DD5);
+            box-shadow: inset 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: bold;
+        }
+        .taskbar-item:hover:not(.active) {
+            background: linear-gradient(to bottom, #5492F2, #2964DF);
+        }
+
+        #system-tray {
+            background: linear-gradient(to bottom, #1B49B8, #0E3593);
+            border-left: 1px solid #102B6D;
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 11px;
+            box-shadow: inset 1px 0 2px rgba(0,0,0,0.3);
+        }
+
+        /* Start Menu Panel */
+        #start-menu {
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            width: 380px;
+            height: 480px;
+            background: white;
+            border: 2px solid var(--xp-border-blue);
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            z-index: 10001;
+            display: none;
+            flex-direction: column;
+            box-shadow: 2px -2px 12px rgba(0,0,0,0.55);
+        }
+
+        #start-header {
+            background: var(--xp-blue-title);
+            height: 55px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            gap: 12px;
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
+            box-shadow: inset 0 -1px 3px rgba(0,0,0,0.3);
+        }
+
+        #start-header-avatar {
+            width: 38px; height: 38px;
+            border: 2px solid white;
+            border-radius: 4px;
+            background: #fff;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+
+        #start-body {
+            display: flex;
+            flex: 1;
+            height: calc(100% - 95px);
+        }
+
+        #start-left {
+            flex: 1.1;
+            background: white;
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        #start-right {
+            flex: 0.9;
+            background: #D3E5FA;
+            border-left: 1px solid #9DBAF2;
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .start-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 8px;
+            cursor: pointer;
+            font-size: 12px;
+            color: var(--xp-text-black);
+            border-radius: 3px;
+        }
+
+        .start-item:hover {
+            background-color: #2F71CD;
+            color: white;
+        }
+
+        .start-item.bold { font-weight: bold; }
+        .start-item svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+        .start-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #A0B9E5, transparent);
+            margin: 4px 0;
+        }
+
+        #start-footer {
+            background: linear-gradient(to right, #4182E3, #245EDC);
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 12px;
+            gap: 15px;
+        }
+
+        .footer-btn {
+            display: flex; align-items: center; gap: 5px;
+            color: white; font-size: 12px; cursor: pointer;
+        }
+        .footer-btn:hover span { text-decoration: underline; }
+
+        /* Window Specific Content Styles */
+        .content-header { border-bottom: 2px solid #D7DCE4; padding-bottom: 5px; margin-bottom: 12px; font-size: 16px; color: #003399; font-weight: bold;}
+        .project-card { border: 1px solid #C5D3ED; background: #F4F7FC; padding: 12px; margin-bottom: 12px; border-radius: 4px; }
+        .project-title { font-weight: bold; color: #003399; font-size: 14px; margin-bottom: 4px;}
+        .tech-tag { display: inline-block; background: #D3E5FA; border: 1px solid #A0B9E5; padding: 1px 5px; font-size: 11px; margin: 1px; border-radius: 3px; color: #1E4BB5;}
+        
+        /* Admin Form Panel Styling */
+        .admin-section-box { border: 1.5px solid #80A4E3; background: #F0F5FD; padding: 12px; margin-bottom: 15px; border-radius: 4px; }
+        .admin-section-box-title { font-weight: bold; color: #1E4BB5; font-size: 13px; margin-bottom: 10px; border-bottom: 1px solid #B4C9EF; padding-bottom: 3px; }
+        .form-group { margin-bottom: 8px; }
+        .form-group label { display: block; font-size: 11px; margin-bottom: 2px; font-weight: bold; color: #333; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; border: 1px solid #7F9DB9; padding: 4px; font-family: Tahoma, sans-serif; font-size: 12px; background: white; color: black; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: 1px solid #245EDC; }
+        
+        .btn-classic {
+            background: #F0F0F0; border: 1px solid #707070; padding: 4px 14px; font-family: Tahoma, sans-serif; font-size: 12px; cursor: pointer;
+            box-shadow: inset 1px 1px 0px #FFF, 1px 1px 0px rgba(0,0,0,0.1);
+            color: black;
+            border-radius: 3px;
+        }
+        .btn-classic:active { box-shadow: inset 1px 1px 2px rgba(0,0,0,0.25); background: #E4E4E4;}
+        .btn-classic-primary {
+            background: #245EDC; border: 1px solid #102B6D; color: white; font-weight: bold;
+        }
+        .btn-classic-primary:active { background: #1B45A8; }
+        .btn-classic-danger {
+            background: #E54028; border: 1px solid #A82414; color: white;
+        }
+        .btn-classic-danger:active { background: #C12E18; }
+
+        /* Theme Styling Overrides */
+        .window-titlebar-theme {
+            background: var(--theme-titlebar, var(--xp-blue-title)) !important;
+        }
+        .window-border-theme {
+            border-color: var(--theme-border, var(--xp-border-blue)) !important;
+        }
+
+        /* XP Authentic Log On Dialog Specifics */
+        .xp-logon-container {
+            background: #5A7EDC;
+            border: 2px solid #D8E4F8;
+            box-shadow: inset -2px -2px 5px rgba(0,0,0,0.5), inset 2px 2px 5px rgba(255,255,255,0.8);
+        }
+        .xp-logon-banner {
+            background: linear-gradient(to right, #00207F 0%, #1040D0 40%, #00207F 100%);
+            border-bottom: 2px solid #D8E4F8;
+        }
+
+        /* Mobile Responsive Engine Layout */
+        @media (max-width: 768px) {
+            .xp-window {
+                width: 100vw !important;
+                height: calc(100vh - 30px) !important;
+                top: 0 !important;
+                left: 0 !important;
+                border-radius: 0;
+                border-width: 2px !important;
+            }
+            .xp-window.minimized { display: none !important; }
+            #start-menu { width: 100vw; height: calc(100vh - 30px); bottom: 30px; border-radius: 0;}
+            #start-body { flex-direction: column; }
+            #start-right { width: 100%; border-left: none; border-top: 1px solid #9DBAF2; }
+            #taskbar-apps { overflow-x: auto; }
+            .xp-titlebar { cursor: default; } /* Drag disabled on mobile for stack layout stability */
+            .desktop-icon { padding: 4px 2px; width: 72px; }
+            .desktop-icon span { font-size: 10px; }
+            #icon-grid { padding: 8px; gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="desktop">
+        <div id="icon-grid">
+            <!-- Icons injected via JS -->
+        </div>
+        
+        <div id="windows-container">
+            <!-- Windows injected via JS -->
+        </div>
+    </div>
+
+    <div id="start-menu">
+        <div id="start-header">
+            <div id="start-header-avatar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#245EDC" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <span id="sm-user-name">Tushar R. Shinde</span>
+        </div>
+        <div id="start-body">
+            <div id="start-left">
+                <!-- Left items injected via JS -->
+            </div>
+            <div id="start-right">
+                <!-- Right items injected via JS -->
+            </div>
+        </div>
+        <div id="start-footer">
+            <div class="footer-btn" onclick="simulateLogoff()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                <span>Log Off</span>
+            </div>
+            <div class="footer-btn" onclick="simulateShutdown()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E54028" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <span>Turn Off Computer</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="taskbar">
+        <div id="start-btn" onclick="toggleStartMenu(event)">
+            <svg width="20" height="20" viewBox="0 0 87.3 87.3" style="filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));">
+                <path fill="#F86828" d="M0 12.5l35.8-5.3v34.1H0z"/>
+                <path fill="#91C300" d="M0 43.6h35.8v34.1L0 72.4z"/>
+                <path fill="#00AEEF" d="M39.6 6.3L87.3 0v41.3H39.6z"/>
+                <path fill="#FFC20E" d="M39.6 43.6h47.7v41.3l-47.7-6.5z"/>
+            </svg>
+            <em>start</em>
+        </div>
+        <div id="taskbar-apps">
+            <!-- Taskbar items injected via JS -->
+        </div>
+        <div id="system-tray">
+            <span id="clock">12:00 PM</span>
+        </div>
+    </div>
+
+<script>
+/* ==========================================
+   RESUME DATA (Default fallback structure - completely aligned with Page 1 and Page 2 of the uploaded resume)
+   ========================================== */
+const DEFAULT_RESUME_DATA = {
+    personal: {
+        name: "TUSHAR RAVI SHINDE",
+        title: "Software Engineer (Fresher)",
+        focus: "Backend & Full-Stack Development",
+        location: "Mumbai / Navi Mumbai / Thane",
+        email: "tusharshinde186306@gmail.com",
+        phone: "+91 91528 45738",
+        github: "github.com/2sharr",
+        summary: "Final-year B.E. Information Technology student with hands-on experience architecting and deploying 6+ full-stack, mobile, and Al-integrated projects using Python, Flask, Java, and JavaScript. Engineered REST API-backed web applications, implemented NLP-driven automation pipelines, and shipped a production-grade Android app with persistent local storage. Completed a backend-focused internship where automation scripts reduced manual processing overhead. Solid foundation in Data Structures & Algorithms, Object-Oriented Programming, and relational database design. Actively practising LeetCode DSA and expanding into Al/ML tooling. Seeking a Fresher Software Engineer role in Mumbai / Navi Mumbai / Thane to contribute to backend and full-stack development in a growth-oriented engineering team."
+    },
+    skills: [
+        { category: "Languages", items: "Python (Primary), JavaScript, Java, C" },
+        { category: "Frameworks", items: "Flask, React (JS), FastAPI, Streamlit, Tailwind CSS" },
+        { category: "Databases", items: "MySQL (normalised schema design, complex queries), MongoDB, SQLite" },
+        { category: "Tools & Platforms", items: "Git & GitHub, VS Code, Android Studio, Postman, Joblib" },
+        { category: "Core CS Concepts", items: "Data Structures & Algorithms (DSA), OOP, REST API Design, CRUD Architecture" },
+        { category: "AI/ML Exposure", items: "NLP (text summarisation pipelines), SHAP (model explainability), Scikit-learn, Google Gemini API, OpenAI API" },
+        { category: "DevOps Basics", items: "Docker (containerisation), CI/CD concepts" },
+        { category: "Currently Learning", items: "Al Automation, C#, Advanced DSA (LeetCode - active)" }
+    ],
+    education: [
+        { degree: "B.E. Information Technology", institution: "Bharati Vidyapeeth College of Engineering, Navi Mumbai (Affiliated: Mumbai University)", date: "Expected: June 2027", details: "Currently in Semester 5 of B.E. (lateral entry via Diploma); relevant coursework: DBMS, Computer Networks, Operating Systems, Software Engineering, Data Structures & Algorithms, Al & ML." },
+        { degree: "Diploma Information Technology", institution: "Government Polytechnic, Thane", date: "Completed: 2024", details: "Sem 5: 88.24% | Sem 6: 88.00%\nConsistently top-tier academic performance demonstrating sustained technical aptitude." }
+    ],
+    experience: [
+        { role: "Python Developer Intern", company: "IGNITECH", date: "2024 — 2 Months", points: [
+            "Engineered Python automation scripts that eliminated repetitive backend data-handling tasks, reducing the team's manual processing overhead for internal workflows.",
+            "Managed the full Git version-control lifecycle: created feature branches, committed structured changes, raised pull requests, and resolved merge conflicts ensuring clean, production-ready code history.",
+            "Authored technical documentation for 2+ project modules, accelerating onboarding time for new contributors and improving knowledge transfer across the team."
+        ]}
+    ],
+    projects: [
+        { title: "Explainable Model Playground", tech: "FastAPI, React, Python, SHAP, Scikit-learn, Joblib", highlights: [
+            "Architected a full-stack ML interpretability platform using FastAPI (backend) and React (frontend) that enables users to upload CSV datasets, train models, and visualise SHAP-based global and local explanations in real time.",
+            "Implemented model validation, residual plot generation, and prediction support, providing end-to-end model analysis from training to inference.",
+            "Engineered an automated PDF report export feature delivering structured model-interpretability reports, reducing manual documentation effort."
+        ] },
+        { title: "AI Coding Assistant Chatbot", tech: "Flask, Python, OpenAI API, MongoDB, JavaScript, Tailwind CSS", highlights: [
+            "Developed a web-based coding assistant integrating the OpenAI API to deliver real-time programming help, contextual debugging support, and language-specific code suggestions across multiple languages.",
+            "Engineered a Flask backend with CORS-enabled REST API routing and implemented MongoDB storage for persistent chat-session management, supporting login/logout flows and full chat-history retrieval.",
+            "Integrated browser-based Speech Recognition for voice-driven query input, broadening accessibility and improving the overall developer experience."
+        ] },
+        { title: "Tourism Management System", tech: "Python, Tkinter, MySQL, Pillow", highlights: [
+            "Engineered a desktop tourism-management application featuring a custom Tkinter GUI for traveller data collection, with full CRUD operations (create, read, update, delete) backed by a normalised MySQL schema.",
+            "Implemented Treeview-based record selection, input validation, and form-reset controls, reducing data-entry errors and improving overall usability."
+        ] },
+        { title: "YouTube Video Summariser", tech: "Python, Streamlit, Google Gemini API, YouTube Transcript API", highlights: [
+            "Developed a Streamlit web application that extracts YouTube transcripts via the YouTube Transcript API and generates Al-powered summaries using Google Gemini, supporting English, Hindi, and Marathi output.",
+            "Integrated thumbnail preview, dynamic loading feedback, and robust error handling for invalid links and missing transcripts, delivering a polished, production-ready user experience."
+        ] },
+        { title: "To-Do List App", tech: "Java, Android Studio, SQLite", highlights: [
+            "Engineered a native Android application with full task lifecycle management (create, read, update, delete), persistent local storage via SQLite, and robust input validation preventing empty or duplicate entries.",
+            "Implemented complete Android activity lifecycle handling to ensure data integrity across app pauses, resumes, and device-rotation events."
+        ] },
+        { title: "Education Multi-Page Website", tech: "HTML, CSS, JavaScript", highlights: [
+            "Built a responsive, multi-page education website with dedicated sections for courses, faculty, reviews, and pricing demonstrating frontend layout proficiency and attention to UI organisation."
+        ] },
+        { title: "Flappy Bird Desktop Game", tech: "Java, Swing, AWT", highlights: [
+            "Developed a Flappy Bird-style desktop game using Java Swing with timer-driven rendering, keyboard/mouse controls, physics-based gravity, collision detection, and multi-screen state management (start, gameplay, game-over)."
+        ] }
+    ],
+    certifications: [
+        { name: "TCS iON Career Edge — Young Professional", date: "TCS iON | 1 Month", topics: "Completed TCS's industry-readiness programme covering professional communication, workplace ethics, and software development fundamentals." }
+    ],
+    interests: "Backend & full-stack web development, AI/ML tooling and automation, open-source contributions, EdTech product development, LeetCode DSA practice, Photography, video editing & content creation",
+    appearance: {
+        wallpaperUrl: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+        taskbarTheme: "blue",
+        accentColor: "#0055E5",
+        resumeUrl: "Tushar_Shinde_Resume.pdf"
+    },
+    assets: {
+        marksheetUrl: "",
+        experienceUrl: "",
+        certificationUrl: ""
+    }
+};
+
+// Override local storage keys to force re-render with fresh resume data inputs
+let portfolioData = JSON.parse(localStorage.getItem('tushar_xp_portfolio_data_v4'));
+if (!portfolioData) {
+    portfolioData = JSON.parse(JSON.stringify(DEFAULT_RESUME_DATA));
+    localStorage.setItem('tushar_xp_portfolio_data_v4', JSON.stringify(portfolioData));
+}
+
+// Temporary draft state for Control Panel (Admin)
+let draftData = JSON.parse(JSON.stringify(portfolioData));
+
+/* ==========================================
+   AUTHENTICATION ENGINE CONFIG
+   ========================================== */
+const SECURE_USERNAME = "admin";
+const SECURE_PASS = "tusharxp2026";
+let isAdminLoggedIn = sessionStorage.getItem('tushar_xp_auth_session') === 'true';
+let lastActiveTime = Date.now();
+
+const AUTO_LOGOUT_LIMIT = 10 * 60 * 1000; 
+
+function resetActivityTimer() {
+    lastActiveTime = Date.now();
+}
+window.addEventListener('mousemove', resetActivityTimer);
+window.addEventListener('keypress', resetActivityTimer);
+
+setInterval(() => {
+    if (isAdminLoggedIn && (Date.now() - lastActiveTime > AUTO_LOGOUT_LIMIT)) {
+        handleAdminLogout(true);
+    }
+}, 30000);
+
+/* ==========================================
+   SVG ICON LIBRARY
+   ========================================== */
+const ICONS = {
+    computer: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#C5D0DC" d="M4 10h40v24H4z"/><path fill="#8797A9" d="M6 12h36v20H6z"/><path fill="#405060" d="M8 14h32v16H8z"/><path fill="#A5B5C5" d="M20 34h8v4h-8z"/><path fill="#8797A9" d="M12 38h24v4H12z"/></svg>`,
+    folder: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#FFA000" d="M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v8h40v-4c0-2.2-1.8-4-4-4z"/><path fill="#FFCA28" d="M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z"/></svg>`,
+    notepad: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#FFF" d="M10 6h28v36H10z"/><path fill="#E0E0E0" d="M10 6h28v6H10z"/><path fill="#1976D2" d="M14 16h20v2H14zM14 22h20v2H14zM14 28h20v2H14zM14 34h12v2H14z"/></svg>`,
+    ie: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="18" fill="#1565C0"/><path fill="#FFCA28" d="M16 8c-6 4-8 12-4 18s12 8 18 4-10-8-14-22z"/></svg>`,
+    cmd: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#212121" d="M6 8h36v32H6z"/><path fill="#E0E0E0" d="M6 8h36v6H6z"/><path fill="#FFF" d="M10 18l6 6-6 6M18 28h8"/></svg>`,
+    mail: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#FFF" d="M6 12h36v24H6z"/><path fill="#90CAF9" d="M6 12l18 12 18-12z"/><path fill="#64B5F6" d="M6 36l14-10M42 36L28 26"/></svg>`,
+    settings: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#757575" d="M42 24c0-1.2-.2-2.3-.5-3.4l4.2-3.3c.4-.3.5-.8.3-1.2l-4-6.9c-.2-.4-.7-.6-1.1-.4l-5 2c-1-1.1-2.2-2-3.4-2.8l-.8-5.3C31.6 2.2 31.2 2 30.7 2h-8c-.5 0-1 .2-1.1.7l-.8 5.3c-1.3.7-2.5 1.6-3.4 2.8l-5-2c-.5-.2-1 0-1.2.4l-4 6.9c-.2.4-.1.9.3 1.2l4.2 3.3c-.3 1.1-.5 2.2-.5 3.4s.2 2.3.5 3.4l-4.2 3.3c-.4.3-.5.8-.3 1.2l4 6.9c.2.4.7.6 1.1.4l5-2c1 1.1 2.2 2 3.4 2.8l.8 5.3c.1.5.5.7 1 .7h8c.5 0 1-.2 1.1-.7l.8-5.3c1.3-.7 2.5-1.6 3.4-2.8l5 2c.5.2 1 0 1.2-.4l4-6.9c.2-.4.1-.9-.3-1.2l-4.2-3.3c.3-1.1.5-2.2.5-3.4z"/><circle cx="24" cy="24" r="6" fill="#BDBDBD"/></svg>`,
+    pdf: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#E53935" d="M38 42H10c-2.2 0-4-1.8-4-4V10c0-2.2 1.8-4 4-4h28c2.2 0 4 1.8 4 4v28c0 2.2-1.8 4-4 4z"/><path fill="#FFF" d="M34 18H14v2h20v-2zm0 6H14v2h20v-2zm-8 6H14v2h12v-2z"/><path fill="#FFCDD2" d="M12 12h24v2H12z"/></svg>`,
+    key: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#FFA000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="30" r="10" fill="#FFE082"/><path d="M23 23l15-15M34 12l4 4M30 16l4 4"/></svg>`
+};
+
+/* ==========================================
+   APP CONFIG & STATE
+   ========================================== */
+const WINDOWS_CONFIG = [
+    { id: 'my-computer', title: 'My Computer', icon: ICONS.computer, type: 'app', startMenu: 'left' },
+    { id: 'my-documents', title: 'My Documents', icon: ICONS.folder, type: 'folder', startMenu: 'right' },
+    { id: 'skills', title: 'Skills.txt', icon: ICONS.notepad, type: 'file', startMenu: 'left' },
+    { id: 'projects', title: 'Projects Explorer', icon: ICONS.ie, type: 'app', startMenu: 'left' },
+    { id: 'education', title: 'Education Background', icon: ICONS.folder, type: 'folder', startMenu: 'left' },
+    { id: 'contact', title: 'Contact Me', icon: ICONS.mail, type: 'file', startMenu: 'right' },
+    { id: 'extras', title: 'Certifications', icon: ICONS.folder, type: 'folder', startMenu: 'right' },
+    { id: 'admin', title: 'Control Panel (Admin)', icon: ICONS.settings, type: 'system', startMenu: 'right' }
+];
+
+let windowState = {};
+let topZIndex = 100;
+let isStartMenuOpen = false;
+
+/* ==========================================
+   INITIALIZATION
+   ========================================== */
+function init() {
+    applyWallpaperAndTheme();
+    renderDesktopIcons();
+    renderStartMenu();
+    updateClock();
+    setInterval(updateClock, 1000);
+    
+    // Close start menu when clicking outside
+    document.addEventListener('mousedown', (e) => {
+        const startMenu = document.getElementById('start-menu');
+        const startBtn = document.getElementById('start-btn');
+        if (isStartMenuOpen && !startMenu.contains(e.target) && !startBtn.contains(e.target)) {
+            toggleStartMenu();
+        }
+    });
+
+    window.addEventListener('resize', handleViewportResize);
+
+    // Auto-open My Computer on load
+    setTimeout(() => openWindow('my-computer'), 400);
+}
+
+function applyWallpaperAndTheme() {
+    const desktop = document.getElementById('desktop');
+    if (portfolioData.appearance && portfolioData.appearance.wallpaperUrl) {
+        desktop.style.backgroundImage = `url('${portfolioData.appearance.wallpaperUrl}')`;
+    }
+    
+    if (portfolioData.appearance && portfolioData.appearance.accentColor) {
+        document.documentElement.style.setProperty('--xp-border-blue', portfolioData.appearance.accentColor);
+    }
+    if (portfolioData.appearance && portfolioData.appearance.taskbarTheme) {
+        const bar = portfolioData.appearance.taskbarTheme;
+        if (bar === 'silver') {
+            document.documentElement.style.setProperty('--xp-taskbar', 'linear-gradient(to bottom, #d2d2d9 0%, #b8b8c4 40%, #8a8a9e 100%)');
+            document.documentElement.style.setProperty('--xp-border-blue', '#8a8a9e');
+        } else if (bar === 'olive') {
+            document.documentElement.style.setProperty('--xp-taskbar', 'linear-gradient(to bottom, #a4b38d 0%, #7e9261 40%, #526739 100%)');
+            document.documentElement.style.setProperty('--xp-border-blue', '#526739');
+        } else {
+            document.documentElement.style.setProperty('--xp-taskbar', 'linear-gradient(to bottom, #245EDC 0%, #3F81EC 8%, #245EDC 40%, #1042AF 100%)');
+            document.documentElement.style.setProperty('--xp-border-blue', '#0055E5');
+        }
+    }
+}
+
+function handleViewportResize() {
+    const isMobile = window.innerWidth <= 768;
+    Object.keys(windowState).forEach(id => {
+        const el = document.getElementById(`window-${id}`);
+        if (el) {
+            if (isMobile) {
+                el.style.width = '100vw';
+                el.style.height = 'calc(100vh - 30px)';
+                el.style.top = '0px';
+                el.style.left = '0px';
+            } else {
+                if (!el.dataset.maximized) {
+                    el.style.width = '640px';
+                    el.style.height = '480px';
+                }
+            }
+        }
+    });
+}
+
+/* ==========================================
+   RESUME PDF DOWNLOAD TRIGGER
+   ========================================== */
+function downloadResume() {
+    const r = portfolioData;
+    const path = r.appearance.resumeUrl || 'Tushar_Shinde_Resume.pdf';
+    
+    const link = document.createElement('a');
+    link.href = path;
+    link.download = "Tushar_Shinde_Resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    showSystemTrayNotification("File Download", "Resume PDF download initiated!");
+}
+
+/* ==========================================
+   DYNAMIC DOCUMENT ASSET DOWNLOADER
+   ========================================== */
+function downloadAsset(key) {
+    const assets = portfolioData.assets || {};
+    let url = assets[`${key}Url`] || '';
+    if (!url) {
+        alert(`No custom document configured for this section yet. Please configure it in the Control Panel (Admin)!`);
+        return;
+    }
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = url.startsWith('data:') ? `Tushar_Shinde_${key}_document.pdf` : url.split('/').pop();
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    showSystemTrayNotification("File Download", `${key.toUpperCase()} downloaded successfully.`);
+}
+
+function showSystemTrayNotification(title, text) {
+    const origText = document.getElementById('clock').innerText;
+    const tray = document.getElementById('system-tray');
+    tray.innerHTML = `<span class="animate-pulse text-green-300 font-bold">📥 Download OK</span>`;
+    setTimeout(() => {
+        tray.innerHTML = `<span id="clock">${origText}</span>`;
+        updateClock();
+    }, 4000);
+}
+
+/* ==========================================
+   RENDERERS (HTML GENERATION)
+   ========================================== */
+function getWindowContent(id) {
+    const d = portfolioData;
+    switch(id) {
+        case 'my-computer':
+            return `
+                <div class="content-header">System Properties</div>
+                <div style="display:flex; gap: 20px; align-items:flex-start; margin-bottom: 20px;">
+                    <div class="w-16 h-16 flex-shrink-0">${ICONS.computer}</div>
+                    <div>
+                        <p><strong>System:</strong><br/>Microsoft Windows XP<br/>Professional<br/>Version 2002<br/>Service Pack 3</p>
+                        <p class="mt-4"><strong>Registered to:</strong><br/><span id="prop-reg-name" class="font-bold">${d.personal.name}</span><br/><span id="prop-reg-title">${d.personal.title}</span></p>
+                    </div>
+                </div>
+                <div class="content-header">Professional Summary</div>
+                <p style="line-height: 1.5; text-align: justify;" class="text-xs md:text-sm whitespace-pre-wrap">${d.personal.summary}</p>
+                <div class="mt-4 p-3 bg-blue-50 border border-blue-200 text-xs md:text-sm">
+                    <strong>Focus Area:</strong> ${d.personal.focus}<br>
+                    <strong>Geographical Area:</strong> ${d.personal.location}
+                </div>
+                <div class="mt-6 flex flex-col sm:flex-row gap-2">
+                    <button class="btn-classic flex items-center gap-2 btn-classic-primary w-full sm:w-auto justify-center" onclick="downloadResume()">
+                        <span class="w-4 h-4 inline-block">${ICONS.pdf}</span>
+                        <span>Download Tushar's Original Resume PDF</span>
+                    </button>
+                </div>
+            `;
+        case 'my-documents':
+            return `
+                <div class="content-header">Professional Experience</div>
+                ${d.experience.map((exp, idx) => `
+                    <div class="project-card">
+                        <div class="flex justify-between items-start flex-wrap gap-2">
+                            <div class="project-title">${exp.role} @ ${exp.company}</div>
+                            <div class="text-xs text-blue-800 font-bold">${exp.date}</div>
+                        </div>
+                        <ul class="list-disc pl-5 mt-2 text-xs md:text-sm space-y-1 text-gray-700">
+                            ${exp.points.map(p => `<li>${p}</li>`).join('')}
+                        </ul>
+                    </div>
+                `).join('')}
+                <div class="mt-4 flex flex-wrap gap-2">
+                    <button class="btn-classic flex items-center gap-2 btn-classic-primary" onclick="downloadAsset('experience')">
+                        <span class="w-4 h-4 inline-block">${ICONS.pdf}</span>
+                        <span>Download Experience Certificates Bundle</span>
+                    </button>
+                    <button class="btn-classic flex items-center gap-2" onclick="downloadResume()">
+                        <span>Download Full Resume PDF</span>
+                    </button>
+                </div>
+            `;
+        case 'skills':
+            return `
+                <div style="font-family: 'Courier New', Courier, monospace;" class="text-xs md:text-sm">
+                    <h3 class="font-bold border-b border-gray-300 mb-2 pb-1">TECHNICAL_SKILLS.TXT</h3>
+                    ${d.skills.map(s => `
+                        <div class="mb-3">
+                            <span class="font-bold text-blue-700">[${s.category}]</span><br>
+                            <span class="text-gray-800">&gt; ${s.items}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        case 'projects':
+            return `
+                <div class="content-header">Project Portfolio Explorer</div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    ${d.projects.map(p => `
+                        <div class="project-card h-full flex flex-col justify-between">
+                            <div>
+                                <div class="project-title">${p.title}</div>
+                                <div class="mb-2 flex flex-wrap gap-1">
+                                    ${p.tech.split(',').map(t => `<span class="tech-tag">${t.trim()}</span>`).join('')}
+                                </div>
+                                <ul class="list-disc pl-5 text-xs text-gray-700 space-y-1">
+                                    ${p.highlights.map(h => `<li>${h}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        case 'education':
+            return `
+                <div class="content-header">Academic History</div>
+                ${d.education.map(edu => `
+                    <div class="mb-5 border-b border-dashed border-gray-200 pb-3">
+                        <div class="text-base font-bold text-blue-800">${edu.degree}</div>
+                        <div class="text-xs md:text-sm font-semibold text-gray-700">${edu.institution}</div>
+                        <div class="text-xs text-gray-500 mb-2">${edu.date}</div>
+                        <div class="text-xs md:text-sm bg-gray-50 p-2 border border-gray-200 block whitespace-pre-line">${edu.details}</div>
+                    </div>
+                `).join('')}
+                <div class="mt-2">
+                    <button class="btn-classic flex items-center gap-2 btn-classic-primary" onclick="downloadAsset('marksheet')">
+                        <span class="w-4 h-4 inline-block">${ICONS.pdf}</span>
+                        <span>Download Marksheets & Degree Details</span>
+                    </button>
+                </div>
+            `;
+        case 'extras':
+            return `
+                <div class="content-header">Certifications</div>
+                <ul class="list-disc pl-5 mb-5 space-y-3">
+                    ${d.certifications.map(c => `
+                        <li class="text-xs md:text-sm">
+                            <strong>${c.name}</strong> (${c.date})<br>
+                            <span class="text-xs text-gray-600">Details: ${c.topics}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+                <div class="content-header">Interests & Hobbies</div>
+                <p class="text-xs md:text-sm leading-relaxed text-gray-700 mb-4">${d.interests}</p>
+                <div class="mt-2">
+                    <button class="btn-classic flex items-center gap-2 btn-classic-primary" onclick="downloadAsset('certification')">
+                        <span class="w-4 h-4 inline-block">${ICONS.pdf}</span>
+                        <span>Download Certifications Bundle PDF</span>
+                    </button>
+                </div>
+            `;
+        case 'contact':
+            return `
+                <div class="content-header">Contact Information</div>
+                <div class="flex flex-col gap-2 mb-4 text-xs md:text-sm bg-blue-50 p-3 border border-blue-200">
+                    <div><strong>Email:</strong> <a href="mailto:${d.personal.email}" class="text-blue-600 underline font-semibold">${d.personal.email}</a></div>
+                    <div><strong>Phone:</strong> <span class="font-semibold">${d.personal.phone}</span></div>
+                    <div><strong>GitHub:</strong> <a href="https://${d.personal.github}" target="_blank" class="text-blue-600 underline font-semibold">${d.personal.github}</a></div>
+                </div>
+                
+                <div class="content-header">Send a Direct Message</div>
+                <div class="bg-gray-100 p-3 border border-gray-300">
+                    <div class="form-group">
+                        <label>Your Name:</label>
+                        <input type="text" id="contact-name" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address:</label>
+                        <input type="text" id="contact-email" placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Message Content:</label>
+                        <textarea id="contact-message" rows="3" placeholder="Write something..."></textarea>
+                    </div>
+                    <button class="btn-classic font-bold text-blue-800" onclick="submitContact()">Send Message</button>
+                    <div id="contact-status" class="mt-2 text-xs text-green-700 font-bold hidden">📬 Message logged to simulated console inbox!</div>
+                </div>
+            `;
+        case 'admin':
+            if (!isAdminLoggedIn) {
+                return renderXpLogonScreen();
+            }
+            return renderAdminPanel();
+        default: return '<p>Folder is empty.</p>';
+    }
+}
+
+function renderDesktopIcons() {
+    const grid = document.getElementById('icon-grid');
+    let iconsHtml = WINDOWS_CONFIG.map(win => `
+        <div class="desktop-icon" ondblclick="openWindow('${win.id}')" onclick="selectIcon(this, event)">
+            ${win.icon}
+            <span>${win.title}</span>
+        </div>
+    `).join('');
+
+    iconsHtml += `
+        <div class="desktop-icon" ondblclick="downloadResume()" onclick="selectIcon(this, event)">
+            ${ICONS.pdf}
+            <span>Resume.pdf</span>
+        </div>
+    `;
+
+    grid.innerHTML = iconsHtml;
+}
+
+function selectIcon(el, e) {
+    document.querySelectorAll('.desktop-icon').forEach(icon => icon.classList.remove('selected'));
+    el.classList.add('selected');
+    e.stopPropagation();
+    
+    if (window.innerWidth <= 768) {
+        el.ondblclick();
+    }
+}
+
+document.getElementById('desktop').addEventListener('mousedown', (e) => {
+    if (e.target.id === 'desktop' || e.target.id === 'icon-grid') {
+        document.querySelectorAll('.desktop-icon').forEach(icon => icon.classList.remove('selected'));
+    }
+});
+
+function renderStartMenu() {
+    const leftContainer = document.getElementById('start-left');
+    const rightContainer = document.getElementById('start-right');
+    
+    let leftHtml = '';
+    let rightHtml = '';
+
+    WINDOWS_CONFIG.forEach(win => {
+        const itemHtml = `
+            <div class="start-item" onclick="openWindow('${win.id}'); toggleStartMenu();">
+                <span class="w-6 h-6 block">${win.icon}</span>
+                <span class="${win.startMenu === 'right' ? '' : 'bold'}">${win.title}</span>
+            </div>
+        `;
+        if (win.startMenu === 'left') {
+            leftHtml += itemHtml;
+        } else {
+            rightHtml += itemHtml;
+        }
+    });
+
+    leftHtml += `
+        <div class="start-divider"></div>
+        <div class="start-item bold" onclick="downloadResume(); toggleStartMenu();">
+            <span class="w-6 h-6 block">${ICONS.pdf}</span>
+            <span class="text-red-700 font-bold">Download Resume PDF</span>
+        </div>
+    `;
+
+    if (isAdminLoggedIn) {
+        rightHtml += `
+            <div class="start-divider"></div>
+            <div class="start-item" onclick="handleAdminLogout(); toggleStartMenu();">
+                <span class="w-5 h-5 flex items-center justify-center font-bold text-red-600">🔓</span>
+                <span class="text-red-700 font-bold">Admin Logout</span>
+            </div>
+        `;
+    }
+
+    leftContainer.innerHTML = leftHtml;
+    rightContainer.innerHTML = `
+        <div class="start-item bold" style="cursor:default;">
+            <span>Tushar's Computer</span>
+        </div>
+        <div class="start-divider"></div>
+        ${rightHtml}
+    `;
+}
+
+/* ==========================================
+   XP LOGON SCREEN HTML RENDERER
+   ========================================== */
+function renderXpLogonScreen() {
+    return `
+        <div class="flex flex-col items-center justify-center h-full p-4 xp-logon-container text-white select-none">
+            <div class="w-full max-w-md bg-[#ECE9D8] text-black border-2 border-white rounded-md overflow-hidden shadow-2xl flex flex-col">
+                <div class="xp-logon-banner p-3 flex justify-between items-center text-white">
+                    <div class="flex items-center gap-2">
+                        <span class="w-8 h-8 flex-shrink-0">${ICONS.key}</span>
+                        <div class="flex flex-col leading-tight">
+                            <span class="font-bold text-sm">Log On to Windows</span>
+                            <span class="text-[10px] text-blue-200">Copyright © 1985-2001 Microsoft Corporation</span>
+                        </div>
+                    </div>
+                    <span class="text-xs font-bold opacity-60">Professional</span>
+                </div>
+
+                <div class="p-6 flex gap-4 bg-[#ECE9D8]">
+                    <div class="w-16 h-16 flex-shrink-0 opacity-80 flex items-center justify-center">
+                        ${ICONS.key}
+                    </div>
+                    <div class="flex-1 space-y-3">
+                        <div class="grid grid-cols-3 items-center gap-2">
+                            <label class="text-xs font-bold text-gray-700 text-right">User name:</label>
+                            <input type="text" id="logon-username" class="col-span-2 border border-[#7F9DB9] px-2 py-1 text-xs focus:outline-blue-500" value="admin" autocomplete="username">
+                        </div>
+                        <div class="grid grid-cols-3 items-center gap-2">
+                            <label class="text-xs font-bold text-gray-700 text-right">Password:</label>
+                            <input type="password" id="logon-password" class="col-span-2 border border-[#7F9DB9] px-2 py-1 text-xs focus:outline-blue-500" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter') handleAdminLogin()">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="logon-error" class="hidden mx-6 mb-2 p-2 border border-red-400 bg-red-100 text-red-800 text-xs rounded font-semibold text-center">
+                    Incorrect username or password.
+                </div>
+
+                <div class="bg-[#ECE9D8] border-t border-gray-300 p-3 flex justify-end gap-2">
+                    <button class="btn-classic font-bold" onclick="handleAdminLogin()">OK</button>
+                    <button class="btn-classic" onclick="closeWindow('admin')">Cancel</button>
+                    <button class="btn-classic" onclick="simulateShutdown()">Shutdown</button>
+                </div>
+            </div>
+            <p class="text-[10px] text-blue-200 mt-4 text-center">
+                Security Tip: The default password is <span class="font-mono bg-blue-900 px-1 py-0.5 rounded text-yellow-300 select-all">tusharxp2026</span>
+            </p>
+        </div>
+    `;
+}
+
+/* ==========================================
+   SIMPLE PLAIN-TEXT LOGON WORKFLOW
+   ========================================== */
+function handleAdminLogin() {
+    const userField = document.getElementById('logon-username');
+    const passField = document.getElementById('logon-password');
+    const errBlock = document.getElementById('logon-error');
+
+    if (!userField || !passField) return;
+
+    const usernameInput = userField.value.trim();
+    const passwordInput = passField.value;
+
+    if (!usernameInput || !passwordInput) {
+        showLogonError("Please enter both User name and Password.");
+        return;
+    }
+
+    if (usernameInput === SECURE_USERNAME && passwordInput === SECURE_PASS) {
+        isAdminLoggedIn = true;
+        sessionStorage.setItem('tushar_xp_auth_session', 'true');
+        resetActivityTimer();
+
+        const contentArea = document.getElementById('content-admin');
+        if (contentArea) {
+            contentArea.innerHTML = getWindowContent('admin');
+        }
+        
+        renderStartMenu();
+        showSystemTrayNotification("Access Granted", "Administrator authenticated.");
+    } else {
+        showLogonError("The system could not log you on. Make sure your User name is correct, then type your password again.");
+    }
+}
+
+function showLogonError(msg) {
+    const errBlock = document.getElementById('logon-error');
+    if (errBlock) {
+        errBlock.innerText = msg;
+        errBlock.classList.remove('hidden');
+    }
+}
+
+function handleAdminLogout(auto = false) {
+    isAdminLoggedIn = false;
+    sessionStorage.removeItem('tushar_xp_auth_session');
+    
+    const contentArea = document.getElementById('content-admin');
+    if (contentArea) {
+        contentArea.innerHTML = getWindowContent('admin');
+    }
+    
+    renderStartMenu();
+    
+    if (auto) {
+        alert("Session Expired: You have been logged out due to inactivity.");
+    } else {
+        showSystemTrayNotification("Logged Out", "Admin session ended safely.");
+    }
+}
+
+/* ==========================================
+   ADMIN WORKSPACE CORE CONTROL
+   ========================================== */
+function renderAdminPanel() {
+    const d = draftData;
+    return `
+        <div class="flex flex-col h-full" style="max-height: calc(100vh - 120px);">
+            <div class="content-header text-blue-900 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span>XP Content & Theme Manager</span>
+                    <button type="button" class="text-[10px] text-red-600 border border-red-400 bg-red-50 hover:bg-red-100 px-2 py-0.5 rounded" onclick="handleAdminLogout()">Log Out</button>
+                </div>
+                <span class="text-xs bg-green-200 text-green-800 px-2 py-0.5 rounded">Persistent Session</span>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto pr-2 space-y-4 text-xs">
+                
+                <!-- Section A: Personal Core -->
+                <div class="admin-section-box">
+                    <div class="admin-section-box-title">Personal Settings (My Computer)</div>
+                    <div class="form-group">
+                        <label>Candidate Full Name:</label>
+                        <input type="text" id="adm-name" value="${d.personal.name}">
+                    </div>
+                    <div class="form-group">
+                        <label>Tagline / Title:</label>
+                        <input type="text" id="adm-title" value="${d.personal.title}">
+                    </div>
+                    <div class="form-group">
+                        <label>Current Tech Focus Area:</label>
+                        <input type="text" id="adm-focus" value="${d.personal.focus}">
+                    </div>
+                    <div class="form-group">
+                        <label>Location Profile:</label>
+                        <input type="text" id="adm-location" value="${d.personal.location}">
+                    </div>
+                    <div class="form-group">
+                        <label>About Summary Description:</label>
+                        <textarea id="adm-summary" rows="4">${d.personal.summary}</textarea>
+                    </div>
+                </div>
+
+                <!-- Section B: Appearance Theme & Custom Wallpaper -->
+                <div class="admin-section-box">
+                    <div class="admin-section-box-title">System Theme & File Attachments</div>
+                    <div class="form-group">
+                        <label>Wallpaper Background URL:</label>
+                        <input type="text" id="adm-wallpaper" value="${d.appearance ? d.appearance.wallpaperUrl : ''}">
+                    </div>
+                    <div class="form-group">
+                        <label>Taskbar Style Theme Option:</label>
+                        <select id="adm-theme">
+                            <option value="blue" ${d.appearance && d.appearance.taskbarTheme === 'blue' ? 'selected' : ''}>Luna Blue (Classic)</option>
+                            <option value="silver" ${d.appearance && d.appearance.taskbarTheme === 'silver' ? 'selected' : ''}>Luna Silver</option>
+                            <option value="olive" ${d.appearance && d.appearance.taskbarTheme === 'olive' ? 'selected' : ''}>Luna Olive Green</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Color Accent Tint Hex:</label>
+                        <input type="color" id="adm-accent" value="${d.appearance && d.appearance.accentColor ? d.appearance.accentColor : '#0055E5'}">
+                    </div>
+                    <div class="form-group">
+                        <label>Resume Download Path/URL:</label>
+                        <input type="text" id="adm-resumeurl" value="${d.appearance && d.appearance.resumeUrl ? d.appearance.resumeUrl : 'Tushar_Shinde_Resume.pdf'}">
+                    </div>
+                </div>
+
+                <!-- NEW SECTION: Dynamic Local Storage Document Upload Manager -->
+                <div class="admin-section-box">
+                    <div class="admin-section-box-title">Dynamic Certificate & Document Assets Upload</div>
+                    <p class="text-[10px] text-gray-500 mb-2">Upload document assets (PDF/images) or paste URLs to make them immediately downloadable from the corresponding windows.</p>
+                    
+                    <div class="form-group">
+                        <label>Education Marksheet PDF File:</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="adm-asset-marksheet" class="w-2/3" value="${d.assets?.marksheetUrl || ''}" placeholder="Upload file or enter URL">
+                            <input type="file" id="file-marksheet" class="hidden" onchange="uploadAssetBase64('marksheet', this)">
+                            <button type="button" class="btn-classic text-xs w-1/3" onclick="document.getElementById('file-marksheet').click()">Upload...</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Experience Certificate PDF File:</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="adm-asset-experience" class="w-2/3" value="${d.assets?.experienceUrl || ''}" placeholder="Upload file or enter URL">
+                            <input type="file" id="file-experience" class="hidden" onchange="uploadAssetBase64('experience', this)">
+                            <button type="button" class="btn-classic text-xs w-1/3" onclick="document.getElementById('file-experience').click()">Upload...</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Certifications PDF File Bundle:</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="adm-asset-certification" class="w-2/3" value="${d.assets?.certificationUrl || ''}" placeholder="Upload file or enter URL">
+                            <input type="file" id="file-certification" class="hidden" onchange="uploadAssetBase64('certification', this)">
+                            <button type="button" class="btn-classic text-xs w-1/3" onclick="document.getElementById('file-certification').click()">Upload...</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section C: Experience / Internship Grid -->
+                <div class="admin-section-box">
+                    <div class="admin-section-box-title">Experience & Internships</div>
+                    <div id="admin-experience-items" class="space-y-3">
+                        ${d.experience.map((exp, idx) => `
+                            <div class="border border-gray-300 p-2 rounded bg-white relative">
+                                <button type="button" class="absolute top-1 right-1 text-red-500 font-bold" onclick="removeExperience(${idx})">✖</button>
+                                <div class="form-group">
+                                    <label>Role:</label>
+                                    <input type="text" class="exp-role" data-idx="${idx}" value="${exp.role}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Company:</label>
+                                    <input type="text" class="exp-company" data-idx="${idx}" value="${exp.company}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Duration / Date:</label>
+                                    <input type="text" class="exp-date" data-idx="${idx}" value="${exp.date}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Key Bullet Points (one per line):</label>
+                                    <textarea class="exp-points" data-idx="${idx}" rows="3">${exp.points.join('\n')}</textarea>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button type="button" class="btn-classic mt-2 text-xs" onclick="promptAddExperience()">＋ Add New Internship/Job</button>
+                </div>
+
+                <!-- Section D: Project Lists -->
+                <div class="admin-section-box">
+                    <div class="admin-section-box-title">Project Items</div>
+                    <div id="admin-project-items" class="space-y-3">
+                        ${d.projects.map((proj, idx) => `
+                            <div class="border border-gray-300 p-2 rounded bg-white relative">
+                                <button type="button" class="absolute top-1 right-1 text-red-500 font-bold" onclick="removeProject(${idx})">✖</button>
+                                <div class="form-group">
+                                    <label>Project Title:</label>
+                                    <input type="text" class="proj-title" data-idx="${idx}" value="${proj.title}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Technologies Used:</label>
+                                    <input type="text" class="proj-tech" data-idx="${idx}" value="${proj.tech}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Highlights (one per line):</label>
+                                    <textarea class="proj-highlights" data-idx="${idx}" rows="3">${proj.highlights.join('\n')}</textarea>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button type="button" class="btn-classic mt-2 text-xs" onclick="promptAddProject()">＋ Add New Project</button>
+                </div>
+
+                <!-- Section E: Skills Categories -->
+                <div class="admin-section-box">
+                    <div class="admin-section-box-title">Technical Skills List</div>
+                    <div id="admin-skill-items" class="space-y-2">
+                        ${d.skills.map((skill, idx) => `
+                            <div class="flex gap-2 items-center">
+                                <input type="text" class="skill-cat w-1/3" data-idx="${idx}" value="${skill.category}">
+                                <input type="text" class="skill-items w-2/3" data-idx="${idx}" value="${skill.items}">
+                                <button type="button" class="text-red-500 font-bold" onclick="removeSkill(${idx})">✖</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button type="button" class="btn-classic mt-2 text-xs" onclick="promptAddSkill()">＋ Add Skill Category</button>
+                </div>
+
+                <!-- Section F: Contact Details -->
+                <div class="admin-section-box">
+                    <div class="admin-section-box-title">Contact Information Details</div>
+                    <div class="form-group">
+                        <label>Primary Email:</label>
+                        <input type="text" id="adm-email" value="${d.personal.email}">
+                    </div>
+                    <div class="form-group">
+                        <label>Active Phone:</label>
+                        <input type="text" id="adm-phone" value="${d.personal.phone}">
+                    </div>
+                    <div class="form-group">
+                        <label>GitHub Username Path:</label>
+                        <input type="text" id="adm-github" value="${d.personal.github}">
+                    </div>
+                </div>
+
+                <!-- Section G: Education Records -->
+                <div class="admin-section-box">
+                    <div class="admin-section-box-title">Academic Achievements</div>
+                    <div id="admin-edu-items" class="space-y-3">
+                        ${d.education.map((edu, idx) => `
+                            <div class="border border-gray-300 p-2 rounded bg-white relative">
+                                <button type="button" class="absolute top-1 right-1 text-red-500 font-bold" onclick="removeEducation(${idx})">✖</button>
+                                <div class="form-group">
+                                    <label>Degree Name / Certification:</label>
+                                    <input type="text" class="edu-degree" data-idx="${idx}" value="${edu.degree}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Institution / Board:</label>
+                                    <input type="text" class="edu-institution" data-idx="${idx}" value="${edu.institution}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Timeline Period / Expected Date:</label>
+                                    <input type="text" class="edu-date" data-idx="${idx}" value="${edu.date}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Coursework Details / Percentage Scores:</label>
+                                    <textarea class="edu-details" data-idx="${idx}" rows="2">${edu.details}</textarea>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button type="button" class="btn-classic mt-2 text-xs" onclick="promptAddEducation()">＋ Add Education Record</button>
+                </div>
+
+                <!-- Section H: Extra Certifications & Interests -->
+                <div class="admin-section-box">
+                    <div class="admin-section-box-title">Certifications & General Interests</div>
+                    <div id="admin-cert-items" class="space-y-3 mb-3">
+                        ${d.certifications.map((cert, idx) => `
+                            <div class="border border-gray-300 p-2 rounded bg-white relative">
+                                <button type="button" class="absolute top-1 right-1 text-red-500 font-bold" onclick="removeCertification(${idx})">✖</button>
+                                <div class="form-group">
+                                    <label>Certification Name:</label>
+                                    <input type="text" class="cert-name" data-idx="${idx}" value="${cert.name}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Duration / Timeline:</label>
+                                    <input type="text" class="cert-date" data-idx="${idx}" value="${cert.date}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Topics covered / Summary:</label>
+                                    <input type="text" class="cert-topics" data-idx="${idx}" value="${cert.topics}">
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button type="button" class="btn-classic text-xs mb-4" onclick="promptAddCertification()">＋ Add New Certification</button>
+
+                    <div class="form-group">
+                        <label>Hobbies and Interests Paragraph:</label>
+                        <textarea id="adm-interests" rows="3">${d.interests}</textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Action Bar -->
+            <div class="pt-3 border-t border-gray-300 flex justify-between gap-2 bg-[#ECE9D8]">
+                <button type="button" class="btn-classic btn-classic-danger" onclick="resetAdminDraft()">Reset To Last Saved</button>
+                <div class="flex gap-2">
+                    <button type="button" class="btn-classic font-bold bg-blue-100 border-blue-500 text-blue-800" onclick="previewDraftChanges()">Apply Live Preview</button>
+                    <button type="button" class="btn-classic btn-classic-primary font-bold" onclick="saveAdminData()">Save & Publish Permanent</button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+/* ==========================================
+   ADMIN OPERATIONS DRAFT STAGING UTILS
+   ========================================== */
+function collectAdminInputs() {
+    draftData.personal.name = document.getElementById('adm-name').value;
+    draftData.personal.title = document.getElementById('adm-title').value;
+    draftData.personal.focus = document.getElementById('adm-focus').value;
+    draftData.personal.location = document.getElementById('adm-location').value;
+    draftData.personal.summary = document.getElementById('adm-summary').value;
+
+    draftData.personal.email = document.getElementById('adm-email').value;
+    draftData.personal.phone = document.getElementById('adm-phone').value;
+    draftData.personal.github = document.getElementById('adm-github').value;
+
+    draftData.appearance = {
+        wallpaperUrl: document.getElementById('adm-wallpaper').value,
+        taskbarTheme: document.getElementById('adm-theme').value,
+        accentColor: document.getElementById('adm-accent').value,
+        resumeUrl: document.getElementById('adm-resumeurl').value
+    };
+
+    // Collect custom asset attachments
+    draftData.assets = {
+        marksheetUrl: document.getElementById('adm-asset-marksheet').value,
+        experienceUrl: document.getElementById('adm-asset-experience').value,
+        certificationUrl: document.getElementById('adm-asset-certification').value
+    };
+
+    // Collect certifications array
+    const certBoxes = document.querySelectorAll('#admin-cert-items > div');
+    draftData.certifications = [];
+    certBoxes.forEach((box, i) => {
+        const name = box.querySelector('.cert-name').value;
+        const date = box.querySelector('.cert-date').value;
+        const topics = box.querySelector('.cert-topics').value;
+        draftData.certifications.push({ name, date, topics });
+    });
+
+    draftData.interests = document.getElementById('adm-interests').value;
+
+    const expBoxes = document.querySelectorAll('#admin-experience-items > div');
+    draftData.experience = [];
+    expBoxes.forEach((box, i) => {
+        const role = box.querySelector('.exp-role').value;
+        const company = box.querySelector('.exp-company').value;
+        const date = box.querySelector('.exp-date').value;
+        const points = box.querySelector('.exp-points').value.split('\n').filter(p => p.trim() !== '');
+        draftData.experience.push({ role, company, date, points });
+    });
+
+    const projBoxes = document.querySelectorAll('#admin-project-items > div');
+    draftData.projects = [];
+    projBoxes.forEach((box, i) => {
+        const title = box.querySelector('.proj-title').value;
+        const tech = box.querySelector('.proj-tech').value;
+        const highlights = box.querySelector('.proj-highlights').value.split('\n').filter(h => h.trim() !== '');
+        draftData.projects.push({ title, tech, highlights });
+    });
+
+    const skillRows = document.querySelectorAll('#admin-skill-items > div');
+    draftData.skills = [];
+    skillRows.forEach((row, i) => {
+        const category = row.querySelector('.skill-cat').value;
+        const items = row.querySelector('.skill-items').value;
+        draftData.skills.push({ category, items });
+    });
+
+    const eduBoxes = document.querySelectorAll('#admin-edu-items > div');
+    draftData.education = [];
+    eduBoxes.forEach((box, i) => {
+        const degree = box.querySelector('.edu-degree').value;
+        const institution = box.querySelector('.edu-institution').value;
+        const date = box.querySelector('.edu-date').value;
+        const details = box.querySelector('.edu-details').value;
+        draftData.education.push({ degree, institution, date, details });
+    });
+}
+
+/* Base refresh to avoid jumps on remove */
+function refreshAdminPanel() {
+    const container = document.getElementById('content-admin');
+    if (container) {
+        const scrollPos = container.scrollTop;
+        container.innerHTML = getWindowContent('admin');
+        setTimeout(() => { container.scrollTop = scrollPos; }, 10);
+    }
+}
+
+/* Specialized refresh that scrolls to the newly added item */
+function refreshAdminPanelWithScroll(targetId) {
+    const container = document.getElementById('content-admin');
+    if (container) {
+        container.innerHTML = getWindowContent('admin');
+        setTimeout(() => {
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) {
+                container.scrollTop = targetEl.offsetTop + targetEl.offsetHeight - container.clientHeight + 100;
+            }
+        }, 20);
+    }
+}
+
+/* ==========================================
+   DYNAMIC ADD DIALOG MANAGER
+   ========================================== */
+function openXPDialog(dialogId, title, fieldsHtml, onConfirmScript) {
+    if(document.getElementById(dialogId)) return;
+    
+    // Transparent blocker to prevent interacting with the background admin panel
+    const blocker = document.createElement('div');
+    blocker.id = `blocker-${dialogId}`;
+    blocker.style.position = 'fixed';
+    blocker.style.top = '0'; blocker.style.left = '0';
+    blocker.style.width = '100vw'; blocker.style.height = '100vh';
+    blocker.style.zIndex = ++topZIndex;
+    document.body.appendChild(blocker);
+
+    const winEl = document.createElement('div');
+    winEl.id = dialogId;
+    winEl.className = 'xp-window window-border-theme text-xs';
+    const isMobile = window.innerWidth <= 768;
+    if(isMobile) {
+        winEl.style.width = '90vw';
+        winEl.style.height = 'auto';
+    } else {
+        winEl.style.width = '420px';
+        winEl.style.height = 'auto';
+    }
+    winEl.style.position = 'fixed';
+    winEl.style.top = '50%';
+    winEl.style.left = '50%';
+    winEl.style.transform = 'translate(-50%, -50%)';
+    winEl.style.zIndex = ++topZIndex;
+    winEl.style.boxShadow = '4px 4px 20px rgba(0,0,0,0.6)';
+
+    winEl.innerHTML = `
+        <div class="xp-titlebar window-titlebar-theme" id="titlebar-${dialogId}">
+            <div class="xp-titlebar-text"><span>${title}</span></div>
+            <div class="xp-titlebar-buttons">
+                <div class="xp-btn xp-btn-red" onclick="closeXPDialog('${dialogId}')" title="Close">
+                    <svg width="10" height="10" viewBox="0 0 10 10" stroke="white" stroke-width="2"><line x1="2" y1="2" x2="8" y2="8"></line><line x1="8" y1="2" x2="2" y2="8"></line></svg>
+                </div>
+            </div>
+        </div>
+        <div class="xp-content-area" style="overflow: visible; background-color: var(--xp-bg); padding: 15px;">
+            ${fieldsHtml}
+            <div class="mt-4 flex justify-end gap-2 pt-3 border-t border-gray-300">
+                <button class="btn-classic font-bold btn-classic-primary" onclick="${onConfirmScript}">Save & Add</button>
+                <button class="btn-classic" onclick="closeXPDialog('${dialogId}')">Cancel</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(winEl);
+    if(!isMobile) dragElement(winEl, document.getElementById(`titlebar-${dialogId}`));
+}
+
+function closeXPDialog(dialogId) {
+    const dlg = document.getElementById(dialogId);
+    if(dlg) dlg.remove();
+    const blocker = document.getElementById(`blocker-${dialogId}`);
+    if(blocker) blocker.remove();
+}
+
+/* Experience Dialog */
+function promptAddExperience() {
+    collectAdminInputs();
+    const html = `
+        <div class="form-group"><label>Role:</label><input type="text" id="new-exp-role" placeholder="e.g. Software Engineer"></div>
+        <div class="form-group"><label>Company:</label><input type="text" id="new-exp-company" placeholder="e.g. IGNITECH"></div>
+        <div class="form-group"><label>Duration / Date:</label><input type="text" id="new-exp-date" placeholder="e.g. 2024 - Present"></div>
+        <div class="form-group"><label>Key Bullet Points (one per line):</label><textarea id="new-exp-points" rows="4"></textarea></div>
+    `;
+    openXPDialog('dialog-add-exp', 'Add New Experience', html, 'confirmAddExperience()');
+}
+function confirmAddExperience() {
+    const role = document.getElementById('new-exp-role').value;
+    const company = document.getElementById('new-exp-company').value;
+    const date = document.getElementById('new-exp-date').value;
+    const points = document.getElementById('new-exp-points').value.split('\n').filter(p => p.trim() !== '');
+    draftData.experience.push({ role, company, date, points });
+    closeXPDialog('dialog-add-exp');
+    refreshAdminPanelWithScroll('admin-experience-items');
+}
+function removeExperience(idx) { collectAdminInputs(); draftData.experience.splice(idx, 1); refreshAdminPanel(); }
+
+/* Project Dialog */
+function promptAddProject() {
+    collectAdminInputs();
+    const html = `
+        <div class="form-group"><label>Project Title:</label><input type="text" id="new-proj-title"></div>
+        <div class="form-group"><label>Technologies Used:</label><input type="text" id="new-proj-tech"></div>
+        <div class="form-group"><label>Highlights (one per line):</label><textarea id="new-proj-highlights" rows="4"></textarea></div>
+    `;
+    openXPDialog('dialog-add-proj', 'Add New Project', html, 'confirmAddProject()');
+}
+function confirmAddProject() {
+    const title = document.getElementById('new-proj-title').value;
+    const tech = document.getElementById('new-proj-tech').value;
+    const highlights = document.getElementById('new-proj-highlights').value.split('\n').filter(p => p.trim() !== '');
+    draftData.projects.push({ title, tech, highlights });
+    closeXPDialog('dialog-add-proj');
+    refreshAdminPanelWithScroll('admin-project-items');
+}
+function removeProject(idx) { collectAdminInputs(); draftData.projects.splice(idx, 1); refreshAdminPanel(); }
+
+/* Skill Dialog */
+function promptAddSkill() {
+    collectAdminInputs();
+    const html = `
+        <div class="form-group"><label>Category Name (e.g., Languages):</label><input type="text" id="new-skill-cat"></div>
+        <div class="form-group"><label>Skills (comma separated):</label><input type="text" id="new-skill-items"></div>
+    `;
+    openXPDialog('dialog-add-skill', 'Add Skill Category', html, 'confirmAddSkill()');
+}
+function confirmAddSkill() {
+    const category = document.getElementById('new-skill-cat').value;
+    const items = document.getElementById('new-skill-items').value;
+    draftData.skills.push({ category, items });
+    closeXPDialog('dialog-add-skill');
+    refreshAdminPanelWithScroll('admin-skill-items');
+}
+function removeSkill(idx) { collectAdminInputs(); draftData.skills.splice(idx, 1); refreshAdminPanel(); }
+
+/* Education Dialog */
+function promptAddEducation() {
+    collectAdminInputs();
+    const html = `
+        <div class="form-group"><label>Degree Name / Certification:</label><input type="text" id="new-edu-degree"></div>
+        <div class="form-group"><label>Institution / Board:</label><input type="text" id="new-edu-inst"></div>
+        <div class="form-group"><label>Timeline / Date:</label><input type="text" id="new-edu-date"></div>
+        <div class="form-group"><label>Coursework Details / Percentage:</label><textarea id="new-edu-details" rows="3"></textarea></div>
+    `;
+    openXPDialog('dialog-add-edu', 'Add Education Record', html, 'confirmAddEducation()');
+}
+function confirmAddEducation() {
+    const degree = document.getElementById('new-edu-degree').value;
+    const institution = document.getElementById('new-edu-inst').value;
+    const date = document.getElementById('new-edu-date').value;
+    const details = document.getElementById('new-edu-details').value;
+    draftData.education.push({ degree, institution, date, details });
+    closeXPDialog('dialog-add-edu');
+    refreshAdminPanelWithScroll('admin-edu-items');
+}
+function removeEducation(idx) { collectAdminInputs(); draftData.education.splice(idx, 1); refreshAdminPanel(); }
+
+/* Certification Dialog */
+function promptAddCertification() {
+    collectAdminInputs();
+    const html = `
+        <div class="form-group"><label>Certification Name:</label><input type="text" id="new-cert-name"></div>
+        <div class="form-group"><label>Duration / Timeline:</label><input type="text" id="new-cert-date"></div>
+        <div class="form-group"><label>Topics covered / Summary:</label><input type="text" id="new-cert-topics"></div>
+    `;
+    openXPDialog('dialog-add-cert', 'Add New Certification', html, 'confirmAddCertification()');
+}
+function confirmAddCertification() {
+    const name = document.getElementById('new-cert-name').value;
+    const date = document.getElementById('new-cert-date').value;
+    const topics = document.getElementById('new-cert-topics').value;
+    draftData.certifications.push({ name, date, topics });
+    closeXPDialog('dialog-add-cert');
+    refreshAdminPanelWithScroll('admin-cert-items');
+}
+function removeCertification(idx) { collectAdminInputs(); draftData.certifications.splice(idx, 1); refreshAdminPanel(); }
+
+/* ==========================================
+   FILE / ASSET PROCESSING
+   ========================================== */
+function uploadAssetBase64(key, input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const base64Data = e.target.result;
+        const targetInput = document.getElementById(`adm-asset-${key}`);
+        if (targetInput) {
+            targetInput.value = base64Data;
+        }
+        alert(`Successfully imported ${file.name} to sandbox state memory. Make sure to click "Save & Publish Permanent" at the bottom to apply.`);
+    };
+    reader.readAsDataURL(file);
+}
+
+function previewDraftChanges() {
+    collectAdminInputs();
+    portfolioData = JSON.parse(JSON.stringify(draftData));
+    
+    applyWallpaperAndTheme();
+    renderDesktopIcons();
+    renderStartMenu();
+    
+    Object.keys(windowState).forEach(id => {
+        const contentArea = document.getElementById(`content-${id}`);
+        if (contentArea && id !== 'admin') {
+            contentArea.innerHTML = getWindowContent(id);
+        }
+    });
+
+    const regName = document.getElementById('prop-reg-name');
+    if (regName) regName.innerText = portfolioData.personal.name;
+    const regTitle = document.getElementById('prop-reg-title');
+    if (regTitle) regTitle.innerText = portfolioData.personal.title;
+
+    alert("Simulated Live Draft Applied Successfully! Enjoy checking out preview.");
+}
+
+function saveAdminData() {
+    collectAdminInputs();
+    portfolioData = JSON.parse(JSON.stringify(draftData));
+    localStorage.setItem('tushar_xp_portfolio_data_v4', JSON.stringify(portfolioData));
+    
+    applyWallpaperAndTheme();
+    renderDesktopIcons();
+    renderStartMenu();
+    
+    Object.keys(windowState).forEach(id => {
+        const contentArea = document.getElementById(`content-${id}`);
+        if (contentArea) {
+            contentArea.innerHTML = getWindowContent(id);
+        }
+    });
+
+    alert("Changes published successfully to LocalStorage! Ready to survive any hard page refreshes.");
+}
+
+function resetAdminDraft() {
+    if (confirm("Are you sure you want to discard your unstaged draft edits?")) {
+        draftData = JSON.parse(JSON.stringify(portfolioData));
+        refreshAdminPanel();
+    }
+}
+
+/* ==========================================
+   WINDOW MANAGEMENT & LOGIC
+   ========================================== */
+function openWindow(id) {
+    const winConfig = WINDOWS_CONFIG.find(w => w.id === id);
+    if (!winConfig) return;
+
+    if (windowState[id]) {
+        const el = document.getElementById(`window-${id}`);
+        if (windowState[id].minimized) {
+            el.style.display = 'flex';
+            windowState[id].minimized = false;
+        }
+        focusWindow(id);
+        updateTaskbar();
+        return;
+    }
+
+    const winEl = document.createElement('div');
+    winEl.id = `window-${id}`;
+    winEl.className = 'xp-window window-border-theme';
+    
+    const offset = Object.keys(windowState).length * 20;
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        winEl.style.width = '100vw';
+        winEl.style.height = 'calc(100vh - 30px)';
+        winEl.style.top = '0px';
+        winEl.style.left = '0px';
+    } else {
+        winEl.style.width = '640px';
+        winEl.style.height = '480px';
+        winEl.style.top = `${60 + offset}px`;
+        winEl.style.left = `${120 + offset}px`;
+    }
+    
+    winEl.style.zIndex = ++topZIndex;
+
+    winEl.innerHTML = `
+        <div class="xp-titlebar window-titlebar-theme" id="titlebar-${id}">
+            <div class="xp-titlebar-text">
+                <span class="w-4 h-4 block">${winConfig.icon}</span>
+                <span>${winConfig.title}</span>
+            </div>
+            <div class="xp-titlebar-buttons">
+                <div class="xp-btn xp-btn-blue" onclick="minimizeWindow(event, '${id}')" title="Minimize">
+                    <svg width="10" height="10" viewBox="0 0 10 10" stroke="white" stroke-width="2"><line x1="1" y1="8" x2="9" y2="8"></line></svg>
+                </div>
+                <div class="xp-btn xp-btn-blue hidden md:flex" onclick="maximizeWindow(event, '${id}')" title="Maximize">
+                    <svg width="10" height="10" viewBox="0 0 10 10" stroke="white" stroke-width="1.5" fill="none"><rect x="1" y="1" width="8" height="8"></rect><line x1="1" y1="3" x2="9" y2="3"></line></svg>
+                </div>
+                <div class="xp-btn xp-btn-red" onclick="closeWindow('${id}')" title="Close">
+                    <svg width="10" height="10" viewBox="0 0 10 10" stroke="white" stroke-width="2"><line x1="2" y1="2" x2="8" y2="8"></line><line x1="8" y1="2" x2="2" y2="8"></line></svg>
+                </div>
+            </div>
+        </div>
+        <div class="xp-content-area" id="content-${id}">
+            ${getWindowContent(id)}
+        </div>
+    `;
+
+    document.getElementById('windows-container').appendChild(winEl);
+
+    if (!isMobile) {
+        dragElement(winEl, document.getElementById(`titlebar-${id}`));
+    } else {
+        winEl.addEventListener('touchstart', () => focusWindow(id));
+    }
+
+    winEl.addEventListener('mousedown', () => focusWindow(id));
+
+    windowState[id] = { id, minimized: false, el: winEl, config: winConfig };
+    
+    focusWindow(id);
+    updateTaskbar();
+}
+
+function closeWindow(id) {
+    if (!windowState[id]) return;
+    const el = document.getElementById(`window-${id}`);
+    el.remove();
+    delete windowState[id];
+    updateTaskbar();
+    
+    let highest = null;
+    let maxZ = 0;
+    Object.keys(windowState).forEach(k => {
+        if (!windowState[k].minimized && parseInt(windowState[k].el.style.zIndex) > maxZ) {
+            maxZ = parseInt(windowState[k].el.style.zIndex);
+            highest = k;
+        }
+    });
+    if(highest) focusWindow(highest);
+}
+
+function minimizeWindow(e, id) {
+    if(e) e.stopPropagation();
+    const el = document.getElementById(`window-${id}`);
+    el.style.display = 'none';
+    windowState[id].minimized = true;
+    updateTaskbar();
+}
+
+let preMaxState = {};
+
+function maximizeWindow(e, id) {
+    if(e) e.stopPropagation();
+    const el = document.getElementById(`window-${id}`);
+    
+    if (!el.dataset.maximized) {
+        preMaxState[id] = {
+            width: el.style.width,
+            height: el.style.height,
+            top: el.style.top,
+            left: el.style.left
+        };
+        el.style.width = '100vw';
+        el.style.height = 'calc(100vh - 30px)';
+        el.style.top = '0px';
+        el.style.left = '0px';
+        el.dataset.maximized = "true";
+    } else {
+        el.style.width = preMaxState[id].width;
+        el.style.height = preMaxState[id].height;
+        el.style.top = preMaxState[id].top;
+        el.style.left = preMaxState[id].left;
+        delete el.dataset.maximized;
+    }
+}
+
+function focusWindow(id) {
+    const el = document.getElementById(`window-${id}`);
+    if (!el) return;
+    
+    el.style.zIndex = ++topZIndex;
+
+    Object.keys(windowState).forEach(k => {
+        const winEl = document.getElementById(`window-${k}`);
+        if (winEl) {
+            if (k === id) {
+                winEl.classList.remove('inactive');
+            } else {
+                winEl.classList.add('inactive');
+            }
+        }
+    });
+
+    updateTaskbar(id);
+}
+
+function toggleStartMenu(e) {
+    if (e) e.stopPropagation();
+    const menu = document.getElementById('start-menu');
+    isStartMenuOpen = !isStartMenuOpen;
+    menu.style.display = isStartMenuOpen ? 'flex' : 'none';
+}
+
+function updateTaskbar(activeId = null) {
+    const container = document.getElementById('taskbar-apps');
+    container.innerHTML = '';
+
+    Object.keys(windowState).forEach(id => {
+        const win = windowState[id];
+        const isActive = activeId === id && !win.minimized;
+        const btn = document.createElement('div');
+        btn.className = `taskbar-item ${isActive ? 'active' : ''}`;
+        
+        let iconSvg = win.config.icon.replace(/width=".*?"/, 'width="14"').replace(/height=".*?"/, 'height="14"');
+        if (!iconSvg.includes('width=')) iconSvg = iconSvg.replace('<svg', '<svg width="14" height="14"');
+        
+        btn.innerHTML = `${iconSvg} <span>${win.config.title}</span>`;
+        
+        btn.onclick = () => {
+            if (isActive) {
+                minimizeWindow(null, id);
+            } else {
+                if (win.minimized) {
+                    document.getElementById(`window-${id}`).style.display = 'flex';
+                    win.minimized = false;
+                }
+                focusWindow(id);
+            }
+        };
+        container.appendChild(btn);
+    });
+}
+
+function updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; 
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    
+    const clockEl = document.getElementById('clock');
+    if (clockEl) {
+        clockEl.innerText = `${hours}:${minutes} ${ampm}`;
+    }
+}
+
+// Drag functionality based on viewport boundaries
+function dragElement(elmnt, header) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    header.onmousedown = dragMouseDown;
+
+    function dragMouseDown(e) {
+        if(elmnt.dataset.maximized) return; 
+        if(e.target.closest('.xp-btn')) return; 
+        e = e || window.event;
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        
+        let newTop = elmnt.offsetTop - pos2;
+        let newLeft = elmnt.offsetLeft - pos1;
+
+        if (newTop < 0) newTop = 0;
+        if (newTop > window.innerHeight - 60) newTop = window.innerHeight - 60;
+        
+        elmnt.style.top = newTop + "px";
+        elmnt.style.left = newLeft + "px";
+    }
+
+    function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
+}
+
+/* ==========================================
+   FORM & ACTION SIMULATORS
+   ========================================== */
+function submitContact() {
+    const name = document.getElementById('contact-name').value;
+    const msg = document.getElementById('contact-message').value;
+    if (!name || !msg) {
+        alert("Please enter at least your name and a message.");
+        return;
+    }
+    document.getElementById('contact-status').classList.remove('hidden');
+    document.getElementById('contact-name').value = '';
+    document.getElementById('contact-email').value = '';
+    document.getElementById('contact-message').value = '';
+    setTimeout(() => {
+         const status = document.getElementById('contact-status');
+         if (status) status.classList.add('hidden');
+    }, 4000);
+}
+
+function simulateLogoff() {
+    alert("Logging off current user session...");
+}
+
+function simulateShutdown() {
+    alert("Shutting down simulated OS...");
+}
+
+// Start the OS
+window.onload = init;
+
+</script>
+</body>
+</html>
